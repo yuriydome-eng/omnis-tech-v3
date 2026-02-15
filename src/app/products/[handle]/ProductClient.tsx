@@ -97,6 +97,10 @@ export default function ProductPage() {
                             "@type": "Brand",
                             "name": "OMNIS TECH"
                         },
+                        "countryOfOrigin": {
+                            "@type": "Country",
+                            "name": handle === "omnis-ring-titanium" ? "Switzerland" : "Germany"
+                        },
                         "offers": {
                             "@type": "Offer",
                             "price": product.priceRange.minVariantPrice.amount,

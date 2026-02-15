@@ -141,6 +141,10 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
                             "@type": "Brand",
                             "name": "OMNIS TECH"
                         },
+                        "countryOfOrigin": {
+                            "@type": "Country",
+                            "name": section.id === "ring" ? "Switzerland" : "Germany"
+                        },
                         "offers": {
                             "@type": "Offer",
                             "price": section.price.replace('€', ''),

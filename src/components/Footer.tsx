@@ -12,8 +12,8 @@ export default function Footer() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         {[
                             { icon: ShieldCheck, label: "30-Day Trial", sub: "Risk-free evaluation" },
-                            { icon: Cpu, label: "Swiss Engineering", sub: "High-precision architecture" },
-                            { icon: Award, label: "2-Year Warranty", sub: "Guaranteed durability" }
+                            { icon: Cpu, label: "European Sourcing", sub: "Switzerland / Germany" },
+                            { icon: Award, label: "3-5 Day Express", sub: "Units shipped from EU" }
                         ].map((item, i) => (
                             <motion.div
                                 key={i}

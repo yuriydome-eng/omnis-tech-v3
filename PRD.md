@@ -58,3 +58,8 @@
     * Sur écran < 768px, le bouton "ACQUÉRIR" et le PRIX (455€) doivent rester fixés en bas de l'écran (Bottom Bar) pour être toujours accessibles au pouce.
 * **Adaptation Scrollytelling :**
     * Si l'animation 3D est trop lourde sur mobile, basculer automatiquement sur une séquence d'images optimisée (Image Sequence Scroll).
+## 9. SUPPLY CHAIN & LOGISTICS
+* **Sourcing Strategy :** European-centric manufacturing (OEM/ODM). Focus on precision chirurgicale (Switzerland/Germany) and manual assembly.
+* **Lead Times :** 48h Processing / 3-5 Days Express Shipping (Europe).
+* **Quality Standard :** QC-Level 1 (Inspection unitaire de chaque produit avant scellage). Each asset carries a unique neural calibration certificate.
+* **Fulfillment :** Direct integration with high-end 3PL partners (luxury-compliant) or Shopify Fulfillment Network with white-glove delivery options.

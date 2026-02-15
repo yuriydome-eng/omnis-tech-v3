@@ -163,6 +163,7 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
                         alt={`${section.title} - ${section.subtitle} technical view`}
                         fill
                         className="object-contain p-20"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                     />
                 </motion.div>
 

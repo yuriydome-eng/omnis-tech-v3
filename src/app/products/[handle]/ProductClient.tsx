@@ -119,6 +119,9 @@ export default function ProductPage() {
                                     alt={`${product.title} - High-resolution engineering view`}
                                     fill
                                     className="object-cover transform transition-transform duration-1000 group-hover:scale-105"
+                                    priority
+                                    loading="eager"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
 

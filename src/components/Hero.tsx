@@ -30,13 +30,15 @@ export default function Hero() {
                 style={{ y: yRing, scale: scaleRing }}
                 className="relative z-10 w-full max-w-[900px] aspect-square flex items-center justify-center p-12"
             >
-                <div className="relative w-full h-full animate-float">
+                <div className="relative w-full h-full animate-float aspect-square">
                     <Image
                         src="/assets/omnis-ring-hero.png"
                         alt="Omnis Ring Titanium Neural Interface in matte black floating in studio light"
                         fill
                         className="object-contain"
                         priority
+                        loading="eager"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
                     />
                 </div>
             </motion.div>

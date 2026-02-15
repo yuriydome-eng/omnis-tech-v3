@@ -1,72 +1,38 @@
-# PRD : Omnis Tech – Plateforme Headless Web 3.0
+# OMNIS TECH - PRODUCT REQUIREMENT DOCUMENT (V3.0)
 
-**Version :** 2.0 (Mission Automation)
-**Objectif :** Créer une boutique e-commerce ultra-rapide connectant le backend Shopify au sourcing AutoDS avec une interface futuriste et une automation complète du catalogue.
+## 1. VISION & IDENTITÉ
+* **Concept :** Luxury Tech & Wearable Intelligence.
+* **Référence Visuelle Absolue :** https://www.devialet.com (Minimalisme, Blanc/Gris, Sculptural).
+* **Expérience Utilisateur :** "Scrollytelling". Le site ne montre pas des pages statiques, il raconte une histoire par le mouvement.
+* **Tone of Voice :** Clinique, poétique, court. Pas de marketing agressif. Juste des faits techniques sublimes.
 
----
+## 2. CATALOGUE & POSITIONNEMENT
+* **Omnis Ring :** "Titanium Neural Interface".
+    * *Key Visual :* Lévitation, Titane brossé.
+    * *Key Feature :* 0.1ms Latency, Neural Sync.
+* **Omnis Lens :** "Augmented Vision Layer".
+    * *Key Visual :* Vue éclatée ou HUD holographique.
+    * *Key Feature :* Photonic Clarity, Heads-Up Display.
+* **Omnis Aura :** "Circadian Sun Generator".
+    * *Key Visual :* Texture minérale, lumière chaude.
+    * *Key Feature :* Bio-synchronized Light.
+* **Règle de Prix (Safety Check) :** Aucun produit ne doit être vendu avec une marge < 30%. (Ex: Aura Lamp fixée à 455€ min).
 
-## 1. Vision du Produit
+## 3. UX & NAVIGATION (NO-FRICTION)
+* **Structure :** One-Page immersive ou Pages Produits dédiées "Full Viewport".
+* **Navigation :** Suppression des distractions (Pas de Blog, Pas de FAQ, Pas de "About Us").
+* **Tunnel d'Achat :** DIRECT CHECKOUT.
+    * Le bouton "ACQUÉRIR" envoie directement vers `/cart/[variantId]:1`.
+    * Pas de page panier intermédiaire.
 
-- **Nom de la marque :** Omnis Tech.
-- **Positionnement :** Tech Bien-être Premium (Luxe, Titane, Minimalisme).
-- **Technologie :** Headless Commerce (Shopify Engine + Custom Frontend).
-## 2. Design Philosophy
-**Identity:** Minimalist Futuristic / Tech-Luxury / Web 3.0
-**Inspiration:** Apple Pro, Tesla, Ledger Stax.
-**Key Elements:**
-- **Deep Black & Titanium:** #050505 background with titanium accents.
-- **Biometric Data Visualization:** HUD elements showing real-time metrics.
-- **Web 3.0 Integration:** Transaction hashes, network status, "Acquire Asset" terminology.
-- **Negative Space:** Extreme use of whitespace (blackspace) for focus.
+## 4. DESIGN SYSTEM (DEVIALET CLONE)
+* **Layout :** Full Bleed (Bord à bord). Pas de conteneurs visibles.
+* **Typography :** Sans-Serif, Massive (pour les titres) ou Ultra-Fine (pour les specs).
+* **Palette :** Monochrome nuancé (Blanc, Gris #F5F5F7, Noir Profond pour le texte).
+* **Motion :** Utilisation de `framer-motion`. Les produits doivent tourner ou s'assembler au scroll.
 
-## 3. Core Products (The "Holy Trinity")
-1.  **Omnis Ring (Titanium):** "BIOMETRIC PRECISION". Advanced health tracking in aerospace-grade titanium.
-2.  **Omnis Lens (Smart):** "NEURAL SYNC". AR interface with contextual awareness.
-3.  **Omnis Aura (Lamp):** "CIRCADIAN OPTIMIZATION". Bio-adaptive lighting for mental clarity.
-    *   *Pricing Adjustment:* Target price €455 to ensure >30% margin.
-
-### B. Connexions (Data)
-
-- **Boutique :** `omnis-tech.myshopify.com`
-- **Storefront Token (Public) :** `ST_TOKEN_HIDDEN` (Used in .env)
-- **Admin Token (Private) :** `SHPAT_HIDDEN` (Stored in .env)
-
-## 3. Mission : Automation du Catalogue
-
-### A. Scraping Sourcing
-- Utilisation d'Antigravity pour extraire les données techniques des produits cibles depuis AutoDS ou sources équivalentes :
-    1. **Omnis Ring** (Bague connectée titane)
-    2. **Omnis Lens** (Lunettes connectées IA)
-    3. **Omnis Aura** (Lampe thérapeutique)
-
-### B. Génération Créative IA
-- Génération d'images IA haute fidélité pour chaque produit.
-- Critère : L'image doit correspondre à 100% à la description technique extraite.
-
-### C. Publication Automatisée
-- Publication des produits sur Shopify via l'Admin API.
-- Synchronisation des descriptions, prix et images générées.
-
-### D. Validation de Sécurité
-- Utilisation de `debug-validator.ts` pour confirmer :
-    - La conformité visuelle.
-    - La marge de profit de 30% minimum après frais de sourcing.
-
-## 4. Design & Identité Visuelle
-
-- **Palette :** Noir profond (#000000), Titane (#C0C0C0), accents Bleu Électrique (#00F0FF).
-- **Effets :** Glassmorphism, Bordures lumineuses (glow), Micro-animations.
-
-## 6. Rapport d'Exécution (Audit Sécurité)
-
-### Statut de l'Automation
-- **Données Sourcing :** Extraites via Firecrawl (Spécifications Grade 5 Titanium).
-- **Visuels IA :** Générés (3 images haute-fidélité).
-- **Publication :** Script `publish-products.mjs` prêt. Bloqué par le manque de scope `write_products` sur l'Admin API.
-
-### Résultats du Validateur Debug
-1. **Omnis Ring Titanium** : ✅ VALIDE. Marge respectée (Vente 399€ / Sourcing 250€).
-2. **Omnis Lens Smart** : ✅ VALIDE. Marge respectée (Vente 899€ / Sourcing 650€).
-3. **Omnis Aura Lamp** : ✅ VALIDE. 
-    - **Sourcing 350€ / Vente 455€** : Marge de 30% respectée.
-    - **Résultat :** Alerte orange supprimée, produit débloqué pour la vente.
+## 5. STACK TECHNIQUE
+* **Frontend :** Next.js 16 (App Router), Tailwind CSS.
+* **Backend :** Shopify Storefront API (via `shopify-admin.ts` et `publish-products.mjs`).
+* **Hosting :** Netlify (Deploy via GitHub CI/CD).
+* **Assets :** Images générées par IA (Style Studio Photo 8k) stockées dans `/public/assets/`.

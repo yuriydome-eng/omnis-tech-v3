@@ -33,7 +33,7 @@ export default function Hero() {
                 <div className="relative w-full h-full animate-float">
                     <Image
                         src="/assets/omnis-ring-hero.png"
-                        alt="Omnis Ring Pro"
+                        alt="Omnis Ring Titanium Neural Interface in matte black floating in studio light"
                         fill
                         className="object-contain"
                         priority

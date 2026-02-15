@@ -18,8 +18,25 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Omnis Tech | L'avenir du Bien-être High-Tech",
-  description: "Plateforme e-commerce Web 3.0 premium connectée à Shopify et AutoDS.",
+  title: {
+    default: "OMNIS TECH | Wearable Intelligence",
+    template: "%s | OMNIS TECH - Wearable Intelligence",
+  },
+  description: "Discover the future of interaction. Omnis Ring, Lens, and Aura. Swiss-engineered wearable technology for seamless neural integration.",
+  keywords: ["Smart ring", "AR glasses", "Bio-hacking light", "Luxury tech", "Titanium wearable", "Neural interface"],
+  openGraph: {
+    title: "OMNIS TECH | Wearable Intelligence",
+    description: "Discover the future of interaction. Swiss-engineered wearable technology.",
+    url: "https://omnis-tech-v3.netlify.app",
+    siteName: "OMNIS TECH",
+    locale: "fr_FR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OMNIS TECH | Wearable Intelligence",
+    description: "Discover the future of interaction. Swiss-engineered wearable technology.",
+  },
 };
 
 export default function RootLayout({

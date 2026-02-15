@@ -127,6 +127,31 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
 
     return (
         <div ref={containerRef} className="relative h-[200vh] w-full flex flex-col items-center">
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org/",
+                        "@type": "Product",
+                        "name": section.title,
+                        "description": section.description,
+                        "image": `https://omnis-tech-v3.netlify.app${section.image}`,
+                        "brand": {
+                            "@type": "Brand",
+                            "name": "OMNIS TECH"
+                        },
+                        "offers": {
+                            "@type": "Offer",
+                            "price": section.price.replace('€', ''),
+                            "priceCurrency": "EUR",
+                            "availability": "https://schema.org/InStock",
+                            "url": section.checkoutUrl
+                        }
+                    })
+                }}
+            />
+
             {/* Sticky Product Container */}
             <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-[#FCFCFD]">
                 <motion.div
@@ -135,7 +160,7 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
                 >
                     <Image
                         src={section.image}
-                        alt={section.title}
+                        alt={`${section.title} - ${section.subtitle} technical view`}
                         fill
                         className="object-contain p-20"
                     />

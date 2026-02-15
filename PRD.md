@@ -36,3 +36,25 @@
 * **Backend :** Shopify Storefront API (via `shopify-admin.ts` et `publish-products.mjs`).
 * **Hosting :** Netlify (Deploy via GitHub CI/CD).
 * **Assets :** Images générées par IA (Style Studio Photo 8k) stockées dans `/public/assets/`.
+
+## 6. CONFIGURATION PRODUIT & INTERACTION
+* **Sélecteur de Variantes (Omnis Ring) :**
+    * Avant le clic "Acquérir", l'utilisateur doit sélectionner une taille via un slider minimaliste.
+    * L'ID de la variante dans l'URL /cart/[variantId] doit se mettre à jour dynamiquement selon la sélection.
+* **Tech Specs Overlay :**
+    * Un bouton discret "VIEW SPECS" ouvre un panneau latéral (Glassmorphism) listant : Poids, Autonomie (ex: "7 Days Battery"), Matériaux (Titanium Grade 5).
+
+## 7. RÉASSURANCE & CONFIANCE (TRUST ELEMENTS)
+* **Section "Engineering Truth" :**
+    * Juste avant le footer, une section avec 3 icônes filaires minimalistes :
+        * "30-Day Trial" (Essai 30 jours).
+        * "Swiss Engineering" (ou autre origine tech).
+        * "2-Year Warranty" (Garantie).
+* **Footer Minimaliste :**
+    * Doit contenir en petits caractères gris (#888) : Privacy Policy, Terms of Sales, Contact Support. (Liens non-intrusifs).
+
+## 8. COMPORTEMENT MOBILE (RESPONSIVE)
+* **Sticky CTA (Mobile Only) :**
+    * Sur écran < 768px, le bouton "ACQUÉRIR" et le PRIX (455€) doivent rester fixés en bas de l'écran (Bottom Bar) pour être toujours accessibles au pouce.
+* **Adaptation Scrollytelling :**
+    * Si l'animation 3D est trop lourde sur mobile, basculer automatiquement sur une séquence d'images optimisée (Image Sequence Scroll).

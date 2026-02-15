@@ -1,5 +1,5 @@
 const SHOPIFY_DOMAIN = process.env.SHOPIFY_DOMAIN || 'omnis-tech.myshopify.com';
-const SHOPIFY_ADMIN_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
+const SHOPIFY_ADMIN_TOKEN = (process.env.SHOPIFY_ADMIN_TOKEN || '') as string;
 
 export async function shopifyAdminFetch({ path, method = 'GET', body }: { path: string, method?: string, body?: Record<string, unknown> }) {
     const endpoint = `https://${SHOPIFY_DOMAIN}/admin/api/2024-01/${path}`;

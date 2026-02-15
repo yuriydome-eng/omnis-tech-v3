@@ -8,26 +8,29 @@ const sections = [
     {
         id: "ring",
         title: "BIOMETRIC PRECISION",
-        subtitle: "OMNIS RING // TITANIUM",
-        description: "The zero-gravity ring. Follow your heartbeat with a precision that defies measurement. Brushed Titanium Grade 5.",
+        subtitle: "OMNIS RING // TITANIUM NEURAL INTERFACE",
+        description: "Titanium Neural Interface. 0.1ms Latency. Track your performance with a surgical precision that defies human measurement. Engineered in black titanium grade 5.",
         image: "/assets/omnis-ring-hero.png",
-        specs: ["Heart Rate", "SPO2", "Sleep Sync"]
+        specs: ["Neural Tracking", "Biometric Flux", "Zero Latency"],
+        checkoutUrl: "https://omnis-tech.myshopify.com/cart/56367065891196:1"
     },
     {
         id: "lens",
-        title: "NEURAL INTERFACE",
-        subtitle: "OMNIS LENS // AR",
-        description: "Vision beyond sight. A discrete HUD interface mapped directly to your perception. Minimalist. Invisible.",
+        title: "PHOTONIC CLARITY",
+        subtitle: "OMNIS LENS // AUGMENTED VISION",
+        description: "Augmented Vision. Photonic Clarity. A discrete holographic engine mapped directly to your visual cortex. Perception, redefined.",
         image: "/assets/omnis-lens-devialet.png",
-        specs: ["HUD Overlay", "AI Context", "Blue Light Pro"]
+        specs: ["Holographic HUD", "Retinal Sync", "Spectral Filter"],
+        checkoutUrl: "https://omnis-tech.myshopify.com/cart/56367065923964:1"
     },
     {
         id: "aura",
         title: "CIRCADIAN FLUX",
-        subtitle: "OMNIS AURA // LIGHT",
-        description: "The light of a new day. Bio-adaptive light spectrum designed to reset your biological clock. Elegant harmony.",
+        subtitle: "OMNIS AURA // BIO-GENERATOR",
+        description: "Circadian Sun Generator. Bio-synchronized. Harness the exact frequency of natural daylight to reset your biological clock in total harmony.",
         image: "/assets/omnis-aura-devialet.png",
-        specs: ["10,000 Lux", "UV Free", "Sunset Mode"]
+        specs: ["Solar Spectrum", "Bio-Resonance", "Zero-UV Output"],
+        checkoutUrl: "https://omnis-tech.myshopify.com/cart/56367065956732:1"
     }
 ];
 
@@ -62,7 +65,7 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
                 <div className="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
                     <div className="w-full max-w-6xl px-12 flex justify-between">
                         <div className="flex flex-col gap-8">
-                            {section.specs.slice(0, 2).map((spec, i) => (
+                            {section.specs.slice(0, 3).map((spec, i) => (
                                 <motion.div
                                     key={spec}
                                     initial={{ opacity: 0, x: -30 }}
@@ -88,9 +91,18 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
                     <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-black uppercase leading-none mb-12">
                         {section.title}
                     </h2>
-                    <p className="text-lg text-[#86868B] leading-relaxed max-w-xl">
+                    <p className="text-lg text-[#86868B] leading-relaxed max-w-xl mb-12">
                         {section.description}
                     </p>
+                    <a href={section.checkoutUrl}>
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="bg-black text-white px-12 py-6 rounded-full text-[10px] font-black tracking-[0.5em] uppercase"
+                        >
+                            ACQUÉRIR
+                        </motion.button>
+                    </a>
                 </div>
             </div>
         </div>

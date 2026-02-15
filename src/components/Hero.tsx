@@ -63,13 +63,15 @@ export default function Hero() {
                 </div>
 
                 <div className="flex flex-col items-end gap-6">
-                    <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="bg-black text-white px-10 py-5 rounded-full text-[10px] font-black tracking-[0.4em] uppercase shadow-2xl hover:bg-[#333] transition-all"
-                    >
-                        ACQUÉRIR L&apos;ACTIF
-                    </motion.button>
+                    <a href="https://omnis-tech.myshopify.com/cart/56367065891196:1">
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="bg-black text-white px-10 py-5 rounded-full text-[10px] font-black tracking-[0.4em] uppercase shadow-2xl hover:bg-[#333] transition-all"
+                        >
+                            ACQUÉRIR L&apos;ACTIF
+                        </motion.button>
+                    </a>
                 </div>
             </div>
 

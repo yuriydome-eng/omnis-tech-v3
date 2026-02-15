@@ -6,14 +6,14 @@
    ======================================== */
 
 :root {
-  /* Core Palette - Deep Luxury */
-  --color-void: #050505;
-  --color-obsidian: #0a0a0a;
-  --color-carbon: #151515;
-  --color-platinum: #e8e8e8;
-  --color-silver: #c0c0c0;
-  --color-ghost: #808080;
-  --color-accent: #00f0ff;
+  /* Core Palette - Devialet Luxury (Light) */
+  --color-void: #FCFCFD;
+  --color-obsidian: #F5F5F7;
+  --color-carbon: #FFFFFF;
+  --color-platinum: #1D1D1F;
+  --color-silver: #86868B;
+  --color-ghost: #A1A1A6;
+  --color-accent: #000000;
 
   /* Spacing System */
   --space-unit: 8px;
@@ -24,11 +24,11 @@
   --space-xl: calc(var(--space-unit) * 20);
 
   /* Typography Scale */
-  --font-display: var(--font-outfit), "Inter Tight", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: var(--font-outfit), "Inter Tight", sans-serif;
+  --font-body: var(--font-inter), "Inter", sans-serif;
 
-  /* Grid System */
-  --grid-opacity: 0.03;
+  /* Grid System - Devialet Style is clean, no visible background grid */
+  --grid-opacity: 0;
   --grid-size: 40px;
 }
 
@@ -48,23 +48,15 @@ body {
   background-color: var(--color-void);
   color: var(--color-platinum);
   font-family: var(--font-body);
-  font-weight: 300;
-  line-height: 1.6;
+  font-weight: 400;
+  line-height: 1.5;
   overflow-x: hidden;
   position: relative;
 }
 
-/* Panzera Grid System Overlay */
+/* Minimalist Devialet Layout - Clean backgrounds */
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: var(--grid-size) var(--grid-size);
-  pointer-events: none;
-  z-index: 1;
+  content: none;
 }
 
 /* Lenis Smooth Scroll */

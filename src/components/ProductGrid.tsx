@@ -1,156 +1,124 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight, Zap, Activity, Eye, Sun } from "lucide-react";
+import { useRef } from "react";
 
-// Updated Collection Data based on "Wearable Intelligence" Focus
-const collections = [
+const sections = [
     {
-        id: 1,
-        layout: "precision",
+        id: "ring",
         title: "BIOMETRIC PRECISION",
-        subtitle: "TITANIUM GRADE 5 // HEALTH 2.0",
-        description: "Bague intelligente en titane brossé noir pour le suivi haute précision : cardiaque, oxygène et sommeil.",
-        image: "/assets/omnis-ring.png",
-        handle: "omnis-ring-titanium",
-        price: "399 EUR",
-        span: "col-span-1 md:col-span-2 lg:col-span-1 row-span-2"
+        subtitle: "OMNIS RING // TITANIUM",
+        description: "The zero-gravity ring. Follow your heartbeat with a precision that defies measurement. Brushed Titanium Grade 5.",
+        image: "/assets/omnis-ring-hero.png",
+        specs: ["Heart Rate", "SPO2", "Sleep Sync"]
     },
     {
-        id: 2,
-        layout: "neural",
-        title: "NEURAL SYNC",
-        subtitle: "AR INTERFACE // VISION",
-        description: "Lunettes ultra-légères avec affichage HUD discret et optique anti-lumière bleue.",
-        image: "/assets/omnis-lens.png",
-        handle: "omnis-lens-smart",
-        price: "299 EUR",
-        span: "col-span-1 md:col-span-1 row-span-1"
+        id: "lens",
+        title: "NEURAL INTERFACE",
+        subtitle: "OMNIS LENS // AR",
+        description: "Vision beyond sight. A discrete HUD interface mapped directly to your perception. Minimalist. Invisible.",
+        image: "/assets/omnis-lens-devialet.png",
+        specs: ["HUD Overlay", "AI Context", "Blue Light Pro"]
     },
     {
-        id: 3,
-        layout: "circadian",
-        title: "CIRCADIAN OPTIMIZATION",
-        subtitle: "BIO-ADAPTIVE LIGHT // WELLNESS",
-        description: "Solution de biohacking lumineuse pour synchroniser votre rythme circadien au quotidien.",
-        image: "/assets/omnis-aura.png",
-        handle: "omnis-aura-lamp",
-        price: "455 EUR",
-        span: "col-span-1 md:col-span-1 row-span-1"
+        id: "aura",
+        title: "CIRCADIAN FLUX",
+        subtitle: "OMNIS AURA // LIGHT",
+        description: "The light of a new day. Bio-adaptive light spectrum designed to reset your biological clock. Elegant harmony.",
+        image: "/assets/omnis-aura-devialet.png",
+        specs: ["10,000 Lux", "UV Free", "Sunset Mode"]
     }
 ];
 
-function PanzeraCard({ collection, index }: { collection: typeof collections[0]; index: number }) {
+function ScrollySection({ section, index }: { section: typeof sections[0], index: number }) {
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+    });
+
+    const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+    const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+    const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
+
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, delay: index * 0.2, ease: [0.23, 1, 0.32, 1] }}
-            className={`relative group overflow-hidden bg-[#0A0A0A] border border-white/5 rounded-3xl ${collection.span}`}
-        >
-            <Link href={`/products/${collection.handle}`} className="block w-full h-full relative">
-                {/* Background Image with Zoom Effect */}
-                <div className="absolute inset-0 z-0">
+        <div ref={containerRef} className="relative h-[200vh] w-full flex flex-col items-center">
+            {/* Sticky Product Container */}
+            <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+                <motion.div
+                    style={{ y, opacity, scale }}
+                    className="relative w-full max-w-[800px] aspect-square"
+                >
                     <Image
-                        src={collection.image}
-                        alt={collection.title}
+                        src={section.image}
+                        alt={section.title}
                         fill
-                        className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-60 mix-blend-luminosity group-hover:mix-blend-normal"
+                        className="object-contain p-20"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                </div>
+                </motion.div>
 
-                {/* Content Overlay */}
-                <div className="relative z-10 w-full h-full p-8 flex flex-col justify-between">
-                    {/* Top Labels */}
-                    <div className="flex justify-between items-start">
-                        <div className="flex flex-col gap-1">
-                            <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-electric-blue/80">
-                                /// {collection.subtitle}
-                            </span>
-                            <span className="text-[10px] font-mono text-white/40">
-                                {collection.price}
-                            </span>
-                        </div>
-                        <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center bg-black/20 backdrop-blur group-hover:border-electric-blue group-hover:text-electric-blue transition-colors">
-                            <ArrowUpRight className="w-4 h-4" />
+                {/* Floating Specs */}
+                <div className="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
+                    <div className="w-full max-w-6xl px-12 flex justify-between">
+                        <div className="flex flex-col gap-8">
+                            {section.specs.slice(0, 2).map((spec, i) => (
+                                <motion.div
+                                    key={spec}
+                                    initial={{ opacity: 0, x: -30 }}
+                                    whileInView={{ opacity: 0.4, x: 0 }}
+                                    viewport={{ margin: "-100px" }}
+                                    className="flex flex-col"
+                                >
+                                    <span className="text-[10px] font-mono tracking-widest text-[#86868B]">0{i + 1}</span>
+                                    <span className="text-xl font-light tracking-tighter text-black uppercase">{spec}</span>
+                                </motion.div>
+                            ))}
                         </div>
                     </div>
-
-                    {/* Main Title based on Layout */}
-                    <div>
-                        <h3 className="text-3xl md:text-5xl font-heading font-black uppercase tracking-tighter text-white leading-[0.9] mb-4">
-                            {collection.title}
-                        </h3>
-                        <p className="text-xs text-white/60 font-mono max-w-[80%] leading-relaxed border-l-2 border-white/10 pl-3">
-                            {collection.description}
-                        </p>
-                    </div>
                 </div>
+            </div>
 
-                {/* Technical Grid Overlay on Card */}
-                <div className="absolute inset-0 border border-white/5 pointer-events-none" />
-
-                {/* Micro-interaction: Acquire Asset */}
-                <div className="absolute bottom-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-electric-blue/10 backdrop-blur border-t border-l border-electric-blue/20">
-                    <span className="text-[10px] font-mono text-electric-blue font-bold tracking-wider">
-                        ACQUIRE ASSET -&gt;
+            {/* Scrolling Text Content */}
+            <div className="relative z-10 w-full max-w-4xl px-12 pb-[50vh]">
+                <div className="flex flex-col items-center text-center">
+                    <span className="text-[10px] font-mono tracking-[0.4em] text-[#86868B] uppercase mb-8">
+                        {section.subtitle}
                     </span>
+                    <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-black uppercase leading-none mb-12">
+                        {section.title}
+                    </h2>
+                    <p className="text-lg text-[#86868B] leading-relaxed max-w-xl">
+                        {section.description}
+                    </p>
                 </div>
-            </Link>
-        </motion.div>
+            </div>
+        </div>
     );
 }
 
 export default function ProductGrid() {
     return (
-        <section className="relative py-32 bg-black z-10">
-            {/* Background Grid Lines specific to section */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="container mx-auto h-full border-r border-l border-white/5" />
-            </div>
+        <section className="relative w-full bg-[#FCFCFD]">
+            {sections.map((section, index) => (
+                <ScrollySection
+                    key={section.id}
+                    section={section}
+                    index={index}
+                />
+            ))}
 
-            <div className="container mx-auto px-6">
-                {/* Section Header with Web 3.0 / Tesla Style */}
-                <div className="flex justify-between items-end mb-16 border-b border-white/10 pb-6">
-                    <div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                            <span className="text-white/40 text-xs font-mono tracking-widest uppercase">
-                                Eth Mainnet Active
-                            </span>
-                        </div>
-                        <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white">
-                            Wearable Intelligence
-                        </h2>
-                    </div>
-                    <div className="hidden md:block text-right">
-                        <div className="text-[10px] font-mono text-white/40">
-                            BLOCK: #18293402<br />HASH: 0x7a...9f2
-                        </div>
-                    </div>
-                </div>
-
-                {/* Asymmetric Bento Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[450px]">
-                    {collections.map((collection, index) => (
-                        <PanzeraCard
-                            key={collection.id}
-                            collection={collection}
-                            index={index}
-                        />
-                    ))}
-                </div>
-
-                {/* Massive Footer Typography */}
-                <div className="mt-32 border-t border-white/10 pt-8 overflow-hidden select-none opacity-20 hover:opacity-40 transition-opacity duration-1000">
-                    <h1 className="text-[12vw] leading-none font-black text-transparent bg-clip-text bg-gradient-to-b from-white/10 to-transparent tracking-tighter text-center">
-                        OMNIS TECH
-                    </h1>
-                </div>
+            {/* Final Call to Action Section */}
+            <div className="h-screen w-full flex flex-col items-center justify-center bg-white">
+                <h2 className="text-[12vw] font-black tracking-tighter text-[#F2F2F4] leading-none mb-20 uppercase">
+                    READY?
+                </h2>
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    className="bg-black text-white px-16 py-8 rounded-full text-xs font-black tracking-[0.5em] uppercase"
+                >
+                    ACQUÉRIR MAINTENANT
+                </motion.button>
             </div>
         </section>
     );

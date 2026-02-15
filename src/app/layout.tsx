@@ -28,16 +28,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="dark">
+    <html lang="fr">
       <head>
         {/* Shopify Web Components Configuration */}
         <meta name="shopify-shop-domain" content="omnis-tech.myshopify.com" />
         <meta name="shopify-token" content="bibbe080775da2dd8c3fa9b4d7b8c7b3" />
       </head>
       <body
-        className={`${inter.variable} ${outfit.variable} antialiased bg-black text-white selection:bg-electric-blue selection:text-black`}
+        className={`${inter.variable} ${outfit.variable} antialiased bg-[#FCFCFD] text-black selection:bg-black selection:text-white`}
       >
-        <div className="fixed inset-0 -z-10 mesh-bg opacity-40" />
 
         <CartProvider>
           <SmoothScroll>

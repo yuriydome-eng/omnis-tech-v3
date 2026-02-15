@@ -1,0 +1,2 @@
+remote: No anonymous write access.
+fatal: Authentication failed for 'https://github.com/yuriydome-eng/omnis-tech-v3.git/'

@@ -22,8 +22,19 @@ export const metadata: Metadata = {
     default: "OMNIS TECH | Wearable Intelligence",
     template: "%s | OMNIS TECH - Wearable Intelligence",
   },
-  description: "Discover the future of interaction. Omnis Ring, Lens, and Aura. Swiss-engineered wearable technology for seamless neural integration.",
-  keywords: ["Smart ring", "AR glasses", "Bio-hacking light", "Luxury tech", "Titanium wearable", "Neural interface"],
+  description: "Découvrez le futur de l'interaction. Bague connectée en titane, lunettes AR avec HUD et éclairage circadien. L'intelligence artificielle haut de gamme par OMNIS TECH.",
+  keywords: [
+    "Bague connectée titane",
+    "Smart ring biohacking",
+    "Lunettes réalité augmentée",
+    "Smart glasses HUD",
+    "Lunettes AR magnésium",
+    "Affichage tête haute",
+    "Éclairage circadien",
+    "Human Centric Lighting",
+    "Bague interface neurale",
+    "Wearable tech luxe"
+  ],
   openGraph: {
     title: "OMNIS TECH | Wearable Intelligence",
     description: "Discover the future of interaction. Swiss-engineered wearable technology.",

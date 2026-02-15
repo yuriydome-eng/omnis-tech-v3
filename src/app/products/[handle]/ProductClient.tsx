@@ -120,7 +120,7 @@ export default function ProductPage() {
                             <div className="relative aspect-square overflow-hidden rounded-sm">
                                 <Image
                                     src={imageUrl}
-                                    alt={`${product.title} - High-resolution engineering view`}
+                                    alt={`${product.title} - Bague connectée titane ou Smart Glasses HUD - Vue technique haute résolution`}
                                     fill
                                     className="object-cover transform transition-transform duration-1000 group-hover:scale-105"
                                     priority

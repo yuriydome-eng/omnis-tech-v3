@@ -164,7 +164,7 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
                 >
                     <Image
                         src={section.image}
-                        alt={`${section.title} - ${section.subtitle} technical view`}
+                        alt={`${section.title} - ${section.subtitle} - Bague connectée titane haut de gamme`}
                         fill
                         className="object-contain p-20"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"

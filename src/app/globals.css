@@ -15,21 +15,21 @@
   --color-ghost: #A1A1A6;
   --color-accent: #000000;
 
-  /* Spacing System */
+  /* Spacing System - Draconian Luxe */
   --space-unit: 8px;
   --space-xs: calc(var(--space-unit) * 2);
-  --space-sm: calc(var(--space-unit) * 3);
-  --space-md: calc(var(--space-unit) * 6);
-  --space-lg: calc(var(--space-unit) * 12);
-  --space-xl: calc(var(--space-unit) * 20);
+  --space-sm: calc(var(--space-unit) * 4);
+  --space-md: calc(var(--space-unit) * 8);
+  --space-lg: 120px;
+  /* Massive padding */
+  --space-xl: 180px;
 
   /* Typography Scale */
   --font-display: var(--font-outfit), "Inter Tight", sans-serif;
   --font-body: var(--font-inter), "Inter", sans-serif;
 
-  /* Grid System - Devialet Style is clean, no visible background grid */
+  /* Grid System - Invisible */
   --grid-opacity: 0;
-  --grid-size: 40px;
 }
 
 * {
@@ -84,38 +84,42 @@ html.lenis body {
 /* Typography System */
 .display-giant {
   font-family: var(--font-display);
-  font-size: clamp(8rem, 20vw, 20rem);
+  font-size: clamp(6rem, 15vw, 12rem);
+  /* Reduced 30% */
   font-weight: 500;
-  line-height: 0.85;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-}
-
-.display-hero {
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 12vw, 10rem);
-  font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.03em;
   text-transform: uppercase;
 }
 
+.display-hero {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 7rem);
+  /* Reduced 30% */
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
 .display-large {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: 400;
-  line-height: 1;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  /* Reduced 30% */
+  font-weight: 500;
+  line-height: 1.1;
   letter-spacing: -0.01em;
   text-transform: uppercase;
 }
 
 .text-editorial {
   font-family: var(--font-body);
-  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
-  font-weight: 300;
+  font-size: 0.875rem;
+  font-weight: 400;
   line-height: 1.8;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
   color: var(--color-silver);
+  opacity: 0.6;
 }
 
 .text-caption {
@@ -388,11 +392,12 @@ html.lenis body {
 /* Luxury Components */
 @layer components {
   .glass-card {
-    @apply bg-[#F5F5F7]/40 backdrop-blur-3xl border border-black/5 rounded-none;
+    @apply bg-transparent backdrop-blur-3xl border border-black/5 rounded-none;
   }
 
   .luxury-button {
-    @apply relative overflow-hidden bg-black text-white px-12 py-6 rounded-none font-bold uppercase tracking-[0.4em] transition-all duration-500 hover:bg-[#1d1d1f];
+    @apply relative overflow-hidden bg-black text-white px-20 py-7 rounded-full font-medium uppercase tracking-[0.6em] transition-all duration-700 hover:scale-[1.02] active:scale-[0.98];
+    font-size: 10px;
   }
 }
 

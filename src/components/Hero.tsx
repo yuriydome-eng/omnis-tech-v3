@@ -44,32 +44,24 @@ export default function Hero() {
             </motion.div>
 
             {/* Bottom Info Bar - Devialet Style */}
-            <div className="absolute bottom-12 left-0 w-full px-12 z-20 flex justify-between items-end">
-                <div className="max-w-md">
-                    <motion.p
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5, duration: 1 }}
-                        className="text-[10px] font-mono tracking-[0.3em] text-[#86868B] uppercase mb-4"
-                    >
-                        /// WEARABLE INTELLIGENCE PROTOCOL
-                    </motion.p>
+            <div className="absolute bottom-20 left-0 w-full px-20 z-20 flex justify-between items-end">
+                <div className="max-w-xl">
                     <motion.h2
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.7, duration: 1 }}
-                        className="text-4xl font-light tracking-tight text-black"
+                        transition={{ delay: 0.5, duration: 1.5 }}
+                        className="text-5xl font-light tracking-tight text-black leading-tight"
                     >
-                        The silence of engineering.<br />The power of data.
+                        The silence of engineering.
                     </motion.h2>
                 </div>
 
-                <div className="flex flex-col items-end gap-6">
-                    <a href="https://omnis-tech.myshopify.com/cart/56367065891196:1">
+                <div className="flex flex-col items-end">
+                    <a href="#collection">
                         <motion.button
-                            whileHover={{ scale: 1.01 }}
-                            whileTap={{ scale: 0.99 }}
-                            className="bg-black text-white px-12 py-6 rounded-none text-[10px] font-bold tracking-[0.4em] uppercase transition-all hover:bg-[#1d1d1f]"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="luxury-button"
                         >
                             ACQUÉRIR — 399€
                         </motion.button>

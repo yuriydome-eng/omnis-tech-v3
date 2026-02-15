@@ -160,7 +160,7 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
             <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-[#FCFCFD]">
                 <motion.div
                     style={{ y: isMobile ? 0 : y, opacity, scale }}
-                    className="relative w-full max-w-[800px] aspect-square"
+                    className="relative w-full max-w-[700px] aspect-square"
                 >
                     <Image
                         src={section.image}
@@ -171,26 +171,7 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
                     />
                 </motion.div>
 
-                {/* Floating Specs */}
-                <div className="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
-                    <div className="w-full max-w-6xl px-12 flex justify-between">
-                        <div className="flex flex-col gap-8">
-                            {section.specs.map((spec, i) => (
-                                <motion.div
-                                    key={spec}
-                                    initial={{ opacity: 0, x: -30 }}
-                                    whileInView={{ opacity: 0.4, x: 0 }}
-                                    viewport={{ margin: "-100px" }}
-                                    className="flex flex-col"
-                                >
-                                    <span className="text-xl font-extralight tracking-tighter text-black uppercase">{spec}</span>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Mobile Sticky CTA Placeholder (Content is outside but this triggers visual cues) */}
+                {/* Mobile Sticky CTA Placeholder */}
                 {isMobile && (
                     <motion.div
                         initial={{ y: 100 }}
@@ -198,12 +179,11 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
                         className="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl border-t border-[#F2F2F4] p-6 z-[100] flex justify-between items-center"
                     >
                         <div className="flex flex-col">
-                            <span className="text-[8px] font-mono tracking-widest text-[#86868B] uppercase">{section.subtitle}</span>
-                            <span className="text-lg font-black tracking-tighter text-black">{section.price}</span>
+                            <span className="text-lg font-medium tracking-tighter text-black">{section.price}</span>
                         </div>
                         <a href={section.checkoutUrl}>
-                            <button className="bg-black text-white px-8 py-4 rounded-full text-[9px] font-black tracking-[0.3em] uppercase">
-                                ACQUÉRIR
+                            <button className="luxury-button !px-8 !py-4">
+                                ACHETER
                             </button>
                         </a>
                     </motion.div>
@@ -211,53 +191,51 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
             </div>
 
             {/* Scrolling Text Content */}
-            <div className="relative z-10 w-full max-w-4xl px-12 pb-[50vh]">
+            <div className="relative z-10 w-full max-w-4xl px-12 pb-[80vh] pt-[20vh]">
                 <div className="flex flex-col items-center text-center">
-                    <span className="text-[10px] font-mono tracking-[0.4em] text-[#86868B] uppercase mb-12 opacity-60">
-                        {section.subtitle}
-                    </span>
-                    <h2 className="text-5xl md:text-7xl font-medium tracking-tight text-black uppercase leading-none mb-16">
+                    <h2 className="display-large text-black leading-none mb-20">
                         {section.title}
                     </h2>
-                    <p className="text-lg text-[#86868B] leading-relaxed max-w-xl mb-16 opacity-60">
+                    <p className="text-editorial max-w-xl mb-24">
                         {section.description}
                     </p>
 
                     {/* Variant Selector for Ring */}
-                    <div className="w-full max-w-sm mb-16 p-10 bg-[#F5F5F7]/50 rounded-3xl backdrop-blur-sm">
-                        <div className="flex justify-between items-baseline mb-8">
-                            <span className="text-[9px] font-bold uppercase tracking-widest text-black opacity-40">SELECT SIZE</span>
-                            <span className="text-xl font-light text-black lowercase tracking-tighter">us {size}</span>
+                    {section.hasVariants && (
+                        <div className="w-full max-w-sm mb-24">
+                            <div className="flex justify-between items-baseline mb-10 opacity-40">
+                                <span className="text-[10px] font-medium uppercase tracking-[0.4em]">SÉLECTION TAILLE</span>
+                                <span className="text-lg font-light tracking-tighter italic">us {size}</span>
+                            </div>
+                            <div className="flex justify-between gap-4">
+                                {[6, 7, 8, 9, 10, 11, 12, 13].map((s) => (
+                                    <button
+                                        key={s}
+                                        onClick={() => setSize(s)}
+                                        className={`w-10 h-10 rounded-full border transition-all duration-700 text-[10px] ${size === s ? 'bg-black text-white border-black' : 'border-black/5 text-black/20 hover:border-black hover:text-black'}`}
+                                    >
+                                        {s}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                        <div className="flex justify-between gap-2">
-                            {[6, 7, 8, 9, 10, 11, 12, 13].map((s) => (
-                                <button
-                                    key={s}
-                                    onClick={() => setSize(s)}
-                                    className={`w-10 h-10 rounded-full border transition-all duration-500 text-[10px] font-mono ${size === s ? 'bg-black text-white border-black' : 'border-[#D2D2D7] text-[#86868B] hover:border-black hover:text-black'}`}
-                                >
-                                    {s}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
+                    )}
 
-                    <div className="flex flex-col sm:flex-row gap-8 items-center w-full max-w-md">
+                    <div className="flex flex-col items-center gap-12 w-full max-w-md">
                         <a href={section.checkoutUrl} className="w-full">
                             <motion.button
-                                whileHover={{ scale: 1.01 }}
-                                whileTap={{ scale: 0.99 }}
-                                className="w-full bg-black text-white py-7 rounded-none text-[10px] font-bold tracking-[0.4em] uppercase transition-all hover:bg-[#1d1d1f]"
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="luxury-button w-full"
                             >
-                                ACQUÉRIR — {section.price}
+                                ACHETER — {section.price}
                             </motion.button>
                         </a>
                         <button
                             onClick={() => setIsSpecsOpen(true)}
-                            className="text-[10px] font-black tracking-[0.3em] uppercase text-[#86868B] hover:text-black transition-colors flex items-center gap-2"
+                            className="text-[9px] font-medium tracking-[0.5em] uppercase text-black/40 hover:text-black transition-colors"
                         >
-                            <Info className="w-4 h-4 stroke-1" />
-                            View Specs
+                            FICHE TECHNIQUE
                         </button>
                     </div>
                 </div>
@@ -274,7 +252,7 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
 
 export default function ProductGrid() {
     return (
-        <section className="relative w-full bg-[#FCFCFD]">
+        <section id="collection" className="relative w-full bg-[#FCFCFD]">
             {sections.map((section, index) => (
                 <ScrollySection
                     key={section.id}
@@ -284,13 +262,13 @@ export default function ProductGrid() {
             ))}
 
             {/* Final Call to Action Section */}
-            <div className="h-screen w-full flex flex-col items-center justify-center bg-white border-t border-[#F2F2F4]">
-                <h2 className="text-[12vw] font-black tracking-tighter text-[#F2F2F4] leading-none mb-20 uppercase">
-                    READY?
+            <div className="h-screen w-full flex flex-col items-center justify-center bg-[#FCFCFD] border-t border-black/5">
+                <h2 className="display-giant text-black/5 mb-32">
+                    OMNIS
                 </h2>
                 <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-black text-white px-16 py-8 rounded-full text-xs font-black tracking-[0.5em] uppercase"
+                    whileHover={{ scale: 1.02 }}
+                    className="luxury-button"
                 >
                     COMMENCER L&apos;EXPÉRIENCE
                 </motion.button>

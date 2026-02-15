@@ -112,17 +112,17 @@ export default function ProductPage() {
                 }}
             />
 
-            <div className="container mx-auto px-12 pt-40 pb-32">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-start">
+            <div className="container mx-auto px-20 pt-60 pb-40">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-40 items-start">
                     {/* Visual Section */}
-                    <div className="sticky top-32">
-                        <div className="bg-[#F5F5F7]/50 p-12 group transition-all duration-1000">
+                    <div className="sticky top-40">
+                        <div className="bg-transparent p-12 group transition-all duration-1000">
                             <div className="relative aspect-square overflow-hidden rounded-none">
                                 <Image
                                     src={imageUrl}
-                                    alt={`${product.title} - Bague connectée titane ou Smart Glasses HUD - Vue technique haute résolution`}
+                                    alt={`${product.title}`}
                                     fill
-                                    className="object-contain transform transition-all duration-1000 group-hover:scale-105"
+                                    className="object-contain"
                                     priority
                                     loading="eager"
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
@@ -130,14 +130,14 @@ export default function ProductPage() {
                             </div>
                         </div>
 
-                        {/* Interactive Features - Size Selector for detail page */}
-                        <div className="mt-16">
-                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] mb-6 block opacity-40">Choisir la Taille</span>
-                            <div className="flex gap-4">
+                        {/* Interactive Features - Simple Size Selector */}
+                        <div className="mt-32">
+                            <span className="text-[10px] font-medium uppercase tracking-[0.5em] mb-10 block opacity-40">CONFIGURATEUR</span>
+                            <div className="flex gap-6">
                                 {[6, 7, 8, 9, 10, 11, 12, 13].map((s) => (
                                     <button
                                         key={s}
-                                        className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center text-xs font-mono transition-all hover:border-black"
+                                        className="w-12 h-12 rounded-full border border-black/5 flex items-center justify-center text-[10px] font-medium transition-all hover:border-black"
                                     >
                                         {s}
                                     </button>
@@ -147,42 +147,18 @@ export default function ProductPage() {
                     </div>
 
                     {/* Info Section */}
-                    <div className="pl-0 lg:pl-16">
-                        <div className="flex items-center gap-4 mb-12">
-                            <div className="h-px w-10 bg-black opacity-20" />
-                            <span className="text-[10px] font-medium text-black/40 uppercase tracking-[0.4em] font-mono">Protocol v1.0.4</span>
-                        </div>
-
-                        <h1 className="text-5xl md:text-7xl font-medium font-outfit uppercase tracking-tight mb-16 leading-none">
+                    <div className="pl-0 lg:pl-32 pt-20">
+                        <h1 className="display-hero text-black mb-16 leading-tight">
                             {product.title}
                         </h1>
 
-                        <div className="flex items-baseline gap-6 mb-20">
-                            <span className="text-5xl font-light font-outfit">{product.priceRange.minVariantPrice.amount} {product.priceRange.minVariantPrice.currencyCode}</span>
-                            <span className="text-black/20 line-through text-xl font-light italic">499.00 EUR</span>
+                        <div className="flex items-baseline gap-10 mb-24">
+                            <span className="text-4xl font-light tracking-tighter">{product.priceRange.minVariantPrice.amount} EUR</span>
                         </div>
 
-                        <p className="text-black/60 text-xl font-light leading-relaxed mb-24 max-w-xl uppercase tracking-[0.1em] text-[12px]">
+                        <p className="text-editorial max-w-lg mb-32">
                             {product.description}
                         </p>
-
-                        {/* Inventory Stats */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-24">
-                            <div className="border-l border-black/5 pl-8 p-6">
-                                <span className="text-[9px] text-black/40 uppercase tracking-[0.3em] mb-4 block font-bold">Statut du Réseau</span>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" />
-                                    <span className="text-sm font-medium uppercase tracking-widest text-black/80">Stock: {sourcing?.stock || "EN STOCK"}</span>
-                                </div>
-                            </div>
-                            <div className="border-l border-black/5 pl-8 p-6">
-                                <span className="text-[9px] text-black/40 uppercase tracking-[0.3em] mb-4 block font-bold">Logistique</span>
-                                <div className="flex items-center gap-3">
-                                    <Truck className="w-4 h-4 text-black/60" />
-                                    <span className="text-sm font-medium uppercase tracking-widest text-black/80">Expédition 48H</span>
-                                </div>
-                            </div>
-                        </div>
 
                         {/* Main Action */}
                         <button
@@ -191,14 +167,24 @@ export default function ProductPage() {
                                     addToCart(product);
                                 }
                             }}
-                            className="w-full bg-black text-white py-10 text-[11px] font-bold uppercase tracking-[0.6em] mb-20 flex items-center justify-center gap-4 group active:scale-[0.99] transition-all hover:bg-[#1d1d1f] rounded-none"
+                            className="luxury-button w-full mb-32"
                         >
-                            ACQUÉRIR — {product.priceRange.minVariantPrice.amount} EUR
+                            ACHETER
                         </button>
+
+                        <div className="border-t border-black/5 pt-20 space-y-12">
+                            <div className="flex items-start gap-8">
+                                <ShieldCheck className="w-5 h-5 text-black shrink-0 opacity-20" />
+                                <div>
+                                    <h4 className="text-[10px] font-medium uppercase tracking-[0.4em] mb-4">TRAÇABILITÉ</h4>
+                                    <p className="text-[11px] text-black/40 font-light uppercase tracking-widest leading-loose">Assemblé à la main. Certificat numérique de propriété unique.</p>
+                                </div>
+                            </div>
+                        </div>
 
                         {/* Debug Validation */}
                         {validation && !validation.isValid && (
-                            <div className="mt-24 p-10 border border-black/5 bg-[#F5F5F7]/30">
+                            <div className="mt-32 p-10 border border-black/5 bg-[#F5F5F7]/30">
                                 <div className="flex items-center gap-4 mb-8">
                                     <div className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" />
                                     <h4 className="text-[10px] uppercase font-bold text-black tracking-[0.4em]">IA Diagnostic Alert</h4>

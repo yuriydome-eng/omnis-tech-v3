@@ -20,7 +20,7 @@ export default function Hero() {
                 style={{ opacity: opacityText, scale: scaleText }}
                 className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none"
             >
-                <h1 className="text-[25vw] font-black tracking-tighter text-[#F2F2F4] leading-none mb-[10vh]">
+                <h1 className="text-[25vw] font-medium tracking-tighter text-[#F2F2F4] leading-none mb-[12vh] opacity-80">
                     OMNIS
                 </h1>
             </motion.div>
@@ -67,11 +67,11 @@ export default function Hero() {
                 <div className="flex flex-col items-end gap-6">
                     <a href="https://omnis-tech.myshopify.com/cart/56367065891196:1">
                         <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="bg-black text-white px-10 py-5 rounded-full text-[10px] font-black tracking-[0.4em] uppercase shadow-2xl hover:bg-[#333] transition-all"
+                            whileHover={{ scale: 1.01 }}
+                            whileTap={{ scale: 0.99 }}
+                            className="bg-black text-white px-12 py-6 rounded-none text-[10px] font-bold tracking-[0.4em] uppercase transition-all hover:bg-[#1d1d1f]"
                         >
-                            ACQUÉRIR L&apos;ACTIF
+                            ACQUÉRIR — 399€
                         </motion.button>
                     </a>
                 </div>

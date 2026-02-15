@@ -18,20 +18,20 @@ export default function Navbar() {
                 className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-12 h-20 bg-white/80 backdrop-blur-xl border-b border-[#F2F2F4]"
             >
                 {/* Logo Section */}
-                <a href="/" className="flex items-center gap-2 group">
-                    <div className="w-6 h-6 bg-black rounded-none transition-transform group-hover:rotate-90 duration-500" />
-                    <span className="text-xl font-black tracking-tighter uppercase text-black">
+                <a href="/" className="flex items-center gap-3 group">
+                    <div className="w-5 h-5 bg-black rounded-none transition-transform group-hover:rotate-180 duration-1000" />
+                    <span className="text-xl font-medium tracking-tight uppercase text-black">
                         Omnis
                     </span>
                 </a>
 
                 {/* Main Links */}
-                <div className="hidden md:flex items-center gap-12">
+                <div className="hidden md:flex items-center gap-16">
                     {["Collection"].map((item) => (
                         <a
                             key={item}
                             href={`#${item.toLowerCase()}`}
-                            className="text-[10px] font-black tracking-[0.3em] uppercase text-[#86868B] hover:text-black transition-colors"
+                            className="text-[10px] font-medium tracking-[0.4em] uppercase text-[#86868B] hover:text-black transition-colors"
                         >
                             {item}
                         </a>

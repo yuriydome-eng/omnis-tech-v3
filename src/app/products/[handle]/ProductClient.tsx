@@ -82,7 +82,7 @@ export default function ProductPage() {
     const imageUrl = product.images.edges[0].node.url;
 
     return (
-        <main className="min-h-screen bg-black text-white">
+        <main className="min-h-screen bg-[#FCFCFD] text-black">
             {/* JSON-LD Structured Data */}
             <script
                 type="application/ld+json"
@@ -112,75 +112,74 @@ export default function ProductPage() {
                 }}
             />
 
-            <div className="container mx-auto px-6 pt-32 pb-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+            <div className="container mx-auto px-12 pt-40 pb-32">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-start">
                     {/* Visual Section */}
                     <div className="sticky top-32">
-                        <div className="glass-card p-4 group">
-                            <div className="relative aspect-square overflow-hidden rounded-sm">
+                        <div className="bg-[#F5F5F7]/50 p-12 group transition-all duration-1000">
+                            <div className="relative aspect-square overflow-hidden rounded-none">
                                 <Image
                                     src={imageUrl}
                                     alt={`${product.title} - Bague connectée titane ou Smart Glasses HUD - Vue technique haute résolution`}
                                     fill
-                                    className="object-cover transform transition-transform duration-1000 group-hover:scale-105"
+                                    className="object-contain transform transition-all duration-1000 group-hover:scale-105"
                                     priority
                                     loading="eager"
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-
-                                <div className="absolute top-6 left-6">
-                                    <span className="bg-electric-blue/20 backdrop-blur-xl border border-electric-blue/30 text-electric-blue text-[10px] font-bold px-4 py-2 rounded uppercase tracking-[0.2em]">
-                                        Product ID: #OMNIS-{product.id}
-                                    </span>
-                                </div>
                             </div>
                         </div>
 
-                        {/* Interactive Features */}
-                        <div className="grid grid-cols-3 gap-4 mt-8">
-                            {[1, 2, 3].map(i => (
-                                <div key={i} className="glass-card aspect-video flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity cursor-pointer border-white/5">
-                                    <Zap className="w-4 h-4 text-electric-blue" />
-                                </div>
-                            ))}
+                        {/* Interactive Features - Size Selector for detail page */}
+                        <div className="mt-16">
+                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] mb-6 block opacity-40">Choisir la Taille</span>
+                            <div className="flex gap-4">
+                                {[6, 7, 8, 9, 10, 11, 12, 13].map((s) => (
+                                    <button
+                                        key={s}
+                                        className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center text-xs font-mono transition-all hover:border-black"
+                                    >
+                                        {s}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
                     {/* Info Section */}
-                    <div>
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="h-px w-8 bg-electric-blue" />
-                            <span className="text-xs font-bold text-electric-blue uppercase tracking-widest font-mono">Omnis Protocol v1.0.4</span>
+                    <div className="pl-0 lg:pl-16">
+                        <div className="flex items-center gap-4 mb-12">
+                            <div className="h-px w-10 bg-black opacity-20" />
+                            <span className="text-[10px] font-medium text-black/40 uppercase tracking-[0.4em] font-mono">Protocol v1.0.4</span>
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl font-black font-outfit uppercase tracking-tighter mb-8 leading-none">
+                        <h1 className="text-5xl md:text-7xl font-medium font-outfit uppercase tracking-tight mb-16 leading-none">
                             {product.title}
                         </h1>
 
-                        <div className="flex items-baseline gap-4 mb-10">
-                            <span className="text-4xl font-bold font-outfit">{product.priceRange.minVariantPrice.amount} {product.priceRange.minVariantPrice.currencyCode}</span>
-                            <span className="text-titanium/50 line-through text-lg font-light">499.00 EUR</span>
+                        <div className="flex items-baseline gap-6 mb-20">
+                            <span className="text-5xl font-light font-outfit">{product.priceRange.minVariantPrice.amount} {product.priceRange.minVariantPrice.currencyCode}</span>
+                            <span className="text-black/20 line-through text-xl font-light italic">499.00 EUR</span>
                         </div>
 
-                        <p className="text-titanium text-lg font-light leading-relaxed mb-12 max-w-xl uppercase tracking-widest text-[11px]">
+                        <p className="text-black/60 text-xl font-light leading-relaxed mb-24 max-w-xl uppercase tracking-[0.1em] text-[12px]">
                             {product.description}
                         </p>
 
                         {/* Inventory Stats */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                            <div className="glass-card p-6 border-white/5">
-                                <span className="text-[10px] text-titanium uppercase tracking-widest mb-2 block font-bold">Statut du Réseau</span>
-                                <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                                    <span className="text-sm font-bold uppercase tracking-tighter">Stock Disponible: {sourcing?.stock || 0}</span>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-24">
+                            <div className="border-l border-black/5 pl-8 p-6">
+                                <span className="text-[9px] text-black/40 uppercase tracking-[0.3em] mb-4 block font-bold">Statut du Réseau</span>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" />
+                                    <span className="text-sm font-medium uppercase tracking-widest text-black/80">Stock: {sourcing?.stock || "EN STOCK"}</span>
                                 </div>
                             </div>
-                            <div className="glass-card p-6 border-white/5">
-                                <span className="text-[10px] text-titanium uppercase tracking-widest mb-2 block font-bold">Temps de Hashage</span>
-                                <div className="flex items-center gap-2">
-                                    <Truck className="w-4 h-4 text-electric-blue" />
-                                    <span className="text-sm font-bold uppercase tracking-tighter">Livraison: 2-4 Blocs (Jours)</span>
+                            <div className="border-l border-black/5 pl-8 p-6">
+                                <span className="text-[9px] text-black/40 uppercase tracking-[0.3em] mb-4 block font-bold">Logistique</span>
+                                <div className="flex items-center gap-3">
+                                    <Truck className="w-4 h-4 text-black/60" />
+                                    <span className="text-sm font-medium uppercase tracking-widest text-black/80">Expédition 48H</span>
                                 </div>
                             </div>
                         </div>
@@ -192,43 +191,24 @@ export default function ProductPage() {
                                     addToCart(product);
                                 }
                             }}
-                            className="w-full neon-button py-8 text-sm font-black uppercase tracking-[0.4em] mb-12 flex items-center justify-center gap-4 group active:scale-95 transition-transform"
+                            className="w-full bg-black text-white py-10 text-[11px] font-bold uppercase tracking-[0.6em] mb-20 flex items-center justify-center gap-4 group active:scale-[0.99] transition-all hover:bg-[#1d1d1f] rounded-none"
                         >
-                            Acquérir cet Actif
-                            <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform" />
+                            ACQUÉRIR — {product.priceRange.minVariantPrice.amount} EUR
                         </button>
-
-                        {/* Security Manifest */}
-                        <div className="space-y-6">
-                            <div className="flex items-start gap-4 p-4 rounded bg-white/[0.02] border border-white/5">
-                                <ShieldCheck className="w-5 h-5 text-electric-blue shrink-0" />
-                                <div>
-                                    <h4 className="text-xs font-bold uppercase tracking-widest mb-1">Authenticité Blockchain</h4>
-                                    <p className="text-[10px] text-titanium font-light uppercase tracking-wider">Chaque pièce est accompagnée d&apos;un NFT de propriété unique sur le protocole Omnis Ledger.</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-4 p-4 rounded bg-white/[0.02] border border-white/5">
-                                <Smartphone className="w-5 h-5 text-electric-blue shrink-0" />
-                                <div>
-                                    <h4 className="text-xs font-bold uppercase tracking-widest mb-1">Ecosystème Connecté</h4>
-                                    <p className="text-[10px] text-titanium font-light uppercase tracking-wider">Synchronisation bidirectionnelle avec vos appareils Omnis via interface neuronale simulée.</p>
-                                </div>
-                            </div>
-                        </div>
 
                         {/* Debug Validation */}
                         {validation && !validation.isValid && (
-                            <div className="mt-16 p-8 glass-card border-orange-500/20 bg-orange-500/5">
-                                <div className="flex items-center gap-3 mb-6">
-                                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-ping" />
-                                    <h4 className="text-[10px] uppercase font-bold text-orange-400 tracking-[0.3em]">IA Diagnostic Alert</h4>
+                            <div className="mt-24 p-10 border border-black/5 bg-[#F5F5F7]/30">
+                                <div className="flex items-center gap-4 mb-8">
+                                    <div className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" />
+                                    <h4 className="text-[10px] uppercase font-bold text-black tracking-[0.4em]">IA Diagnostic Alert</h4>
                                 </div>
-                                <div className="space-y-3">
+                                <div className="space-y-4">
                                     {validation.errors.map((err, i) => (
-                                        <p key={i} className="text-[10px] text-orange-200/60 uppercase tracking-widest font-mono">ERR:: {err}</p>
+                                        <p key={i} className="text-[11px] text-black/40 uppercase tracking-widest font-mono italic">ERR// {err}</p>
                                     ))}
                                     {validation.warnings.map((warn, i) => (
-                                        <p key={i} className="text-[10px] text-titanium/40 uppercase tracking-widest font-mono">WARN:: {warn}</p>
+                                        <p key={i} className="text-[11px] text-black/20 uppercase tracking-widest font-mono">WARN// {warn}</p>
                                     ))}
                                 </div>
                             </div>

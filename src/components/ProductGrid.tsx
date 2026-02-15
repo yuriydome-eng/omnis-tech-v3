@@ -49,7 +49,7 @@ function PanzeraCard({ collection, index }: { collection: typeof collections[0];
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: index * 0.2, ease: [0.23, 1, 0.32, 1] }}
-            className={`relative group overflow-hidden bg-[#0A0A0A] border border-white/10 ${collection.span}`}
+            className={`relative group overflow-hidden bg-[#0A0A0A] border border-white/5 rounded-3xl ${collection.span}`}
         >
             <Link href={`/products/${collection.handle}`} className="block w-full h-full relative">
                 {/* Background Image with Zoom Effect */}
@@ -68,7 +68,7 @@ function PanzeraCard({ collection, index }: { collection: typeof collections[0];
                     {/* Top Labels */}
                     <div className="flex justify-between items-start">
                         <div className="flex flex-col gap-1">
-                            <span className="text-[10px] uppercase tracking-[0.2em] font-mono text-electric-blue">
+                            <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-electric-blue/80">
                                 /// {collection.subtitle}
                             </span>
                             <span className="text-[10px] font-mono text-white/40">
@@ -82,7 +82,7 @@ function PanzeraCard({ collection, index }: { collection: typeof collections[0];
 
                     {/* Main Title based on Layout */}
                     <div>
-                        <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white leading-[0.9] mb-2">
+                        <h3 className="text-3xl md:text-5xl font-heading font-black uppercase tracking-tighter text-white leading-[0.9] mb-4">
                             {collection.title}
                         </h3>
                         <p className="text-xs text-white/60 font-mono max-w-[80%] leading-relaxed border-l-2 border-white/10 pl-3">
@@ -135,7 +135,7 @@ export default function ProductGrid() {
                 </div>
 
                 {/* Asymmetric Bento Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 auto-rows-[450px]">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[450px]">
                     {collections.map((collection, index) => (
                         <PanzeraCard
                             key={collection.id}

@@ -1,207 +1,257 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { ShopifyProduct } from "@/lib/shopify";
-import { getSourcingData, SourcingData } from "@/lib/sourcing";
-import { validateProductData, ValidationResult } from "@/lib/debug-validator";
 import Image from "next/image";
-import { ShieldCheck, Truck, Zap, Smartphone, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, Search, Check, Info } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import TrustSection from "@/components/TrustSection";
+
+// Types for our sidebar interaction
+type Finition = {
+    id: string;
+    name: string;
+    color: string;
+    image: string;
+};
+
+type Accessory = {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+};
+
+const FINITIONS: Finition[] = [
+    { id: "black", name: "Sideral Black", color: "#1A1A1A", image: "/assets/omnis-ring.png" },
+    { id: "silver", name: "Silver", color: "#E5E5E5", image: "/assets/omnis-ring.png" }, // Using same image for demo if others don't exist
+    { id: "gold", name: "Gold", color: "#D4AF37", image: "/assets/omnis-ring.png" },
+];
+
+const ACCESSORIES: Accessory[] = [
+    { id: "dock", name: "Omnis Dock", description: "Station de recharge induction", price: 79 },
+    { id: "case", name: "Leather Travel Case", description: "Étui de transport en cuir véritable", price: 49 },
+];
 
 export default function ProductPage() {
     const { handle } = useParams() as { handle: string };
     const { addToCart } = useCart();
-    const [loading, setLoading] = useState(true);
+
+    // State management for configuration
+    const [selectedFinition, setSelectedFinition] = useState<Finition>(FINITIONS[0]);
+    const [selectedSizing, setSelectedSizing] = useState<"standard" | "custom">("standard");
+    const [selectedAccessories, setSelectedAccessories] = useState<Set<string>>(new Set());
+    const [protection, setProtection] = useState<"none" | "warranty">("none");
+
     const [product, setProduct] = useState<ShopifyProduct | null>(null);
-    const [sourcing, setSourcing] = useState<SourcingData | null>(null);
-    const [validation, setValidation] = useState<ValidationResult | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const loadProduct = async () => {
-            // Effet de chargement Web 3.0
-            await new Promise(resolve => setTimeout(resolve, 800));
-
-            // Dynamic content based on handle
-            const isAura = handle === "omnis-aura-lamp";
-            const isLens = handle === "omnis-lens-smart";
-            const price = isAura ? "455.00" : "399.00";
-
-            const imageMap: Record<string, string> = {
-                "omnis-ring-titanium": "/assets/omnis-ring.png",
-                "omnis-lens-smart": "/assets/omnis-lens.png",
-                "omnis-aura-lamp": "/assets/omnis-aura.png"
-            };
-
+            // Mock product data for Omnis Ring
             const mockProduct: ShopifyProduct = {
-                id: handle === "omnis-aura-lamp" ? "3" : handle === "omnis-lens-smart" ? "2" : "1",
-                title: handle.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
-                handle: handle,
-                description: isAura
-                    ? "Une solution de biohacking lumineuse pour synchroniser votre rythme circadien. Le spectre solaire au service de votre vitalité."
-                    : isLens
-                        ? "Lunettes connectées ultra-légères avec affichage HUD discret. Optique anti-lumière bleue et interface holographique latérale."
-                        : "L'anneau intelligent en titane de grade 5 (titane brossé noir) conçu pour le suivi biométrique haute précision (cardiaque, oxygène, sommeil).",
-                priceRange: { minVariantPrice: { amount: price, currencyCode: "EUR" } },
-                images: { edges: [{ node: { url: imageMap[handle] || "https://images.unsplash.com/photo-1617042375876-a13e36732a04?auto=format", altText: handle } }] }
+                id: "1",
+                title: "Omnis Ring",
+                handle: "omnis-ring-titanium",
+                description: "Titanium Neural Interface",
+                priceRange: { minVariantPrice: { amount: "399.00", currencyCode: "EUR" } },
+                images: { edges: [{ node: { url: "/assets/omnis-ring.png", altText: "Omnis Ring" } }] }
             };
-
-            const sourcingData = await getSourcingData(mockProduct.id);
-            const shopifyPriceNum = parseFloat(price);
-            const sourcingCost = shopifyPriceNum * 0.45; // Margin validated
-
-            const valResult = validateProductData({
-                shopifyPrice: shopifyPriceNum,
-                sourcingCost: sourcingCost,
-                title: mockProduct.title,
-                imageUrl: mockProduct.images.edges[0].node.url
-            });
-
             setProduct(mockProduct);
-            setSourcing(sourcingData);
-            setValidation(valResult);
             setLoading(false);
         };
-
-        if (handle) loadProduct();
+        loadProduct();
     }, [handle]);
 
-    if (loading) {
-        return (
-            <div className="min-h-screen bg-black flex items-center justify-center font-mono">
-                <div className="text-center">
-                    <div className="w-16 h-16 border-2 border-electric-blue border-t-transparent rounded-full animate-spin mx-auto mb-6" />
-                    <p className="text-electric-blue text-[10px] uppercase tracking-[0.5em] animate-pulse">Initialisation de la Matrice...</p>
-                </div>
-            </div>
-        );
+    const toggleAccessory = (id: string) => {
+        const next = new Set(selectedAccessories);
+        if (next.has(id)) next.delete(id);
+        else next.add(id);
+        setSelectedAccessories(next);
+    };
+
+    if (loading || !product) {
+        return <div className="min-h-screen bg-white flex items-center justify-center font-sans tracking-widest text-[10px] uppercase">Chargement...</div>;
     }
 
-    if (!product) return null;
-
-    const imageUrl = product.images.edges[0].node.url;
-
     return (
-        <main className="min-h-screen bg-[#FCFCFD] text-black">
-            {/* JSON-LD Structured Data */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org/",
-                        "@type": "Product",
-                        "name": product.title,
-                        "description": product.description,
-                        "image": `https://omnis-tech-v3.netlify.app${imageUrl}`,
-                        "brand": {
-                            "@type": "Brand",
-                            "name": "OMNIS TECH"
-                        },
-                        "countryOfOrigin": {
-                            "@type": "Country",
-                            "name": handle === "omnis-ring-titanium" ? "Switzerland" : "Germany"
-                        },
-                        "offers": {
-                            "@type": "Offer",
-                            "price": product.priceRange.minVariantPrice.amount,
-                            "priceCurrency": "EUR",
-                            "availability": "https://schema.org/InStock",
-                            "url": `https://omnis-tech-v3.netlify.app/products/${handle}`
-                        }
-                    })
-                }}
-            />
-
-            <div className="container mx-auto px-20 pt-60 pb-40">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-40 items-start">
-                    {/* Visual Section */}
-                    <div className="sticky top-40">
-                        <div className="bg-transparent p-12 group transition-all duration-1000">
-                            <div className="relative aspect-square overflow-hidden rounded-none">
+        <div className="bg-white">
+            <main className="flex flex-col lg:flex-row min-h-screen bg-white text-black font-sans selection:bg-black/5">
+                {/* LEFT COLUMN - Visual Showcase (60%) */}
+                <div className="lg:w-[60%] relative flex items-center justify-center p-12 bg-[#F5F5F7] min-h-[50vh] lg:min-h-screen">
+                    {/* Product Image with Framer Motion for Transitions */}
+                    <div className="relative w-full aspect-square max-w-2xl">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={selectedFinition.id}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 1.05 }}
+                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                className="w-full h-full relative"
+                            >
                                 <Image
-                                    src={imageUrl}
-                                    alt={`${product.title}`}
+                                    src={selectedFinition.image}
+                                    alt={product.title}
                                     fill
-                                    className="object-contain"
+                                    className="object-contain p-20 drop-shadow-2xl"
                                     priority
-                                    loading="eager"
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                                 />
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+                </div>
+
+                {/* RIGHT COLUMN - Sidebar Configuration (40%) */}
+                <div className="lg:w-[40%] bg-white sidebar-scroll overflow-y-auto lg:h-screen border-l border-black/[0.03]">
+                    <div className="px-10 lg:px-20 py-20 lg:py-24 space-y-12">
+
+                        {/* Header Section */}
+                        <div className="flex justify-between items-start">
+                            <div className="space-y-1">
+                                <h1 className="text-3xl lg:text-4xl font-normal tracking-tight uppercase">OMNIS TECH</h1>
+                                <p className="text-sm font-light text-black/50 tracking-wide">{product.title} // {product.description}</p>
+                            </div>
+                            <div className="text-right">
+                                <span className="text-2xl font-normal">399 €</span>
                             </div>
                         </div>
 
-                        {/* Interactive Features - Simple Size Selector */}
-                        <div className="mt-32">
-                            <span className="text-[10px] font-medium uppercase tracking-[0.5em] mb-10 block opacity-40">CONFIGURATEUR</span>
+                        <hr className="border-black/[0.06]" />
+
+                        {/* Section 1 - Finition */}
+                        <div className="space-y-8">
+                            <h3 className="text-[11px] font-medium uppercase tracking-[0.2em]">Finition</h3>
                             <div className="flex gap-6">
-                                {[6, 7, 8, 9, 10, 11, 12, 13].map((s) => (
-                                    <button
-                                        key={s}
-                                        className="w-12 h-12 rounded-full border border-black/5 flex items-center justify-center text-[10px] font-medium transition-all hover:border-black"
-                                    >
-                                        {s}
-                                    </button>
+                                {FINITIONS.map((fin) => (
+                                    <div key={fin.id} className="flex flex-col items-center gap-3">
+                                        <button
+                                            onClick={() => setSelectedFinition(fin)}
+                                            className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${selectedFinition.id === fin.id ? "border-black scale-110" : "border-transparent hover:border-black/20"
+                                                }`}
+                                        >
+                                            <div className="w-8 h-8 rounded-full" style={{ backgroundColor: fin.color }} />
+                                        </button>
+                                        <span className={`text-[9px] uppercase tracking-widest transition-opacity duration-300 ${selectedFinition.id === fin.id ? "opacity-100" : "opacity-0"
+                                            }`}>
+                                            {fin.name}
+                                        </span>
+                                    </div>
                                 ))}
                             </div>
                         </div>
-                    </div>
 
-                    {/* Info Section */}
-                    <div className="pl-0 lg:pl-32 pt-20">
-                        <h1 className="display-hero text-black mb-16 leading-tight">
-                            {product.title}
-                        </h1>
+                        <hr className="border-black/[0.06]" />
 
-                        <div className="flex items-baseline gap-10 mb-24">
-                            <span className="text-4xl font-light tracking-tighter">{product.priceRange.minVariantPrice.amount} EUR</span>
-                        </div>
-
-                        <p className="text-editorial max-w-lg mb-32">
-                            {product.description}
-                        </p>
-
-                        {/* Main Action */}
-                        <button
-                            onClick={() => {
-                                if (product) {
-                                    addToCart(product);
-                                }
-                            }}
-                            className="luxury-button w-full mb-32"
-                        >
-                            ACHETER
-                        </button>
-
-                        <div className="border-t border-black/5 pt-20 space-y-12">
-                            <div className="flex items-start gap-8">
-                                <ShieldCheck className="w-5 h-5 text-black shrink-0 opacity-20" />
-                                <div>
-                                    <h4 className="text-[10px] font-medium uppercase tracking-[0.4em] mb-4">TRAÇABILITÉ</h4>
-                                    <p className="text-[11px] text-black/40 font-light uppercase tracking-widest leading-loose">Assemblé à la main. Certificat numérique de propriété unique.</p>
-                                </div>
+                        {/* Section 2 - Sizing (Interactive Cards) */}
+                        <div className="space-y-8">
+                            <h3 className="text-[11px] font-medium uppercase tracking-[0.2em]">Taille</h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                <button
+                                    onClick={() => setSelectedSizing("standard")}
+                                    className={`p-8 text-left border rounded-none transition-all duration-300 ${selectedSizing === "standard" ? "border-black bg-[#F5F5F7] shadow-sm" : "border-black/5 bg-transparent hover:border-black/20"
+                                        }`}
+                                >
+                                    <span className="block text-xs font-medium mb-1 uppercase tracking-[0.2em]">Standard</span>
+                                    <span className="block text-[10px] text-black/40 font-light uppercase tracking-wider">Tailles 6-13</span>
+                                </button>
+                                <button
+                                    onClick={() => setSelectedSizing("custom")}
+                                    className={`p-8 text-left border rounded-none transition-all duration-300 ${selectedSizing === "custom" ? "border-black bg-[#F5F5F7] shadow-sm" : "border-black/5 bg-transparent hover:border-black/20"
+                                        }`}
+                                >
+                                    <span className="block text-xs font-medium mb-1 uppercase tracking-[0.2em]">Custom Fit</span>
+                                    <span className="block text-[10px] text-black/40 font-light uppercase tracking-wider">Kit inclus</span>
+                                </button>
                             </div>
                         </div>
 
-                        {/* Debug Validation */}
-                        {validation && !validation.isValid && (
-                            <div className="mt-32 p-10 border border-black/5 bg-[#F5F5F7]/30">
-                                <div className="flex items-center gap-4 mb-8">
-                                    <div className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" />
-                                    <h4 className="text-[10px] uppercase font-bold text-black tracking-[0.4em]">IA Diagnostic Alert</h4>
-                                </div>
-                                <div className="space-y-4">
-                                    {validation.errors.map((err, i) => (
-                                        <p key={i} className="text-[11px] text-black/40 uppercase tracking-widest font-mono italic">ERR// {err}</p>
-                                    ))}
-                                    {validation.warnings.map((warn, i) => (
-                                        <p key={i} className="text-[11px] text-black/20 uppercase tracking-widest font-mono">WARN// {warn}</p>
-                                    ))}
-                                </div>
+                        <hr className="border-black/[0.06]" />
+
+                        {/* Section 3 - Accessoires */}
+                        <div className="space-y-8">
+                            <h3 className="text-[11px] font-medium uppercase tracking-[0.2em]">Accessoires</h3>
+                            <div className="space-y-3">
+                                {ACCESSORIES.map((acc) => (
+                                    <div
+                                        key={acc.id}
+                                        onClick={() => toggleAccessory(acc.id)}
+                                        className={`p-6 flex items-center justify-between border cursor-pointer transition-all duration-300 ${selectedAccessories.has(acc.id) ? "border-black bg-[#F5F5F7]" : "border-black/5 bg-transparent hover:border-black/10"
+                                            }`}
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className={`w-5 h-5 border transition-all flex items-center justify-center ${selectedAccessories.has(acc.id) ? "bg-black border-black" : "border-black/20"
+                                                }`}>
+                                                {selectedAccessories.has(acc.id) && <Check size={14} className="text-white" />}
+                                            </div>
+                                            <div>
+                                                <p className="text-xs font-medium uppercase tracking-wider">{acc.name}</p>
+                                                <p className="text-[10px] text-black/40 font-light">{acc.description}</p>
+                                            </div>
+                                        </div>
+                                        <span className="text-xs font-medium">+{acc.price} €</span>
+                                    </div>
+                                ))}
                             </div>
-                        )}
+                        </div>
+
+                        <hr className="border-black/[0.06]" />
+
+                        {/* Section 4 - Protection */}
+                        <div className="space-y-8">
+                            <h3 className="text-[11px] font-medium uppercase tracking-[0.2em]">Omnis Care : <span className="text-black/40 font-light">Extension de garantie</span></h3>
+                            <div className="space-y-3">
+                                <button
+                                    onClick={() => setProtection("warranty")}
+                                    className={`w-full p-6 text-left border flex items-center justify-between transition-all duration-300 ${protection === "warranty" ? "border-black bg-white" : "border-black/5 bg-transparent hover:border-black/10"
+                                        }`}
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className={`w-5 h-5 border rounded-full flex items-center justify-center transition-all ${protection === "warranty" ? "border-black border-[5px]" : "border-black/20"
+                                            }`} />
+                                        <span className="text-xs font-medium uppercase tracking-wider">Garantie 2 ans</span>
+                                    </div>
+                                    <span className="text-xs font-medium">+99 €</span>
+                                </button>
+                                <button
+                                    onClick={() => setProtection("none")}
+                                    className="block w-full text-center py-2 text-[10px] text-black/30 uppercase tracking-[0.2em] hover:text-black transition-colors"
+                                >
+                                    Sans garantie
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Final Action Button */}
+                        <div className="pt-12">
+                            <button
+                                onClick={() => {
+                                    // Direct Checkout with Shopify Logic
+                                    const variantId = "56367065891196";
+                                    window.location.href = `https://omnis-tech.myshopify.com/cart/${variantId}:1`;
+                                }}
+                                className="w-full bg-black text-white py-8 px-10 rounded-none text-[12px] font-medium uppercase tracking-[0.5em] hover:bg-black/90 transition-all duration-300 transform active:scale-[0.98] shadow-2xl shadow-black/10"
+                            >
+                                ACQUÉRIR
+                            </button>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-        </main>
+
+                <style jsx global>{`
+                    .sidebar-scroll::-webkit-scrollbar {
+                        width: 0px;
+                    }
+                    .sidebar-scroll {
+                        scrollbar-width: none;
+                    }
+                `}</style>
+            </main>
+
+            <TrustSection />
+        </div>
     );
 }

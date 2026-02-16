@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import ProductGrid from "@/components/ProductGrid";
+import TrustSection from "@/components/TrustSection";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       />
       <Hero />
       <ProductGrid />
+      <TrustSection />
     </main>
   );
 }

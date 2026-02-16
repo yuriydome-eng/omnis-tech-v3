@@ -1,4 +1,4 @@
-# OMNIS TECH - PRODUCT REQUIREMENT DOCUMENT (V3.0)
+# OMNIS TECH - PRODUCT REQUIREMENT DOCUMENT (V3.4)
 
 ## 1. VISION & IDENTITÉ
 * **Concept :** Luxury Tech & Wearable Intelligence.

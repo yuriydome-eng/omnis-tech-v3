@@ -8,7 +8,7 @@ import { X, Info, ChevronRight } from "lucide-react";
 const sections = [
     {
         id: "ring",
-        title: "BIOMETRIC PRECISION",
+        title: "",
         subtitle: "OMNIS RING // TITANIUM NEURAL INTERFACE",
         description: "Titanium Neural Interface. 0.1ms Latency. Track your performance with a surgical precision that defies human measurement. Engineered in black titanium grade 5.",
         image: "/assets/omnis-ring-hero.png",
@@ -193,9 +193,7 @@ function ScrollySection({ section, index }: { section: typeof sections[0], index
             {/* Scrolling Text Content */}
             <div className="relative z-10 w-full max-w-4xl px-12 pb-[80vh] pt-[20vh]">
                 <div className="flex flex-col items-center text-center">
-                    <h2 className="display-large text-black leading-none mb-20">
-                        {section.title}
-                    </h2>
+                    {section.title}
                     <p className="text-editorial max-w-xl mb-24">
                         {section.description}
                     </p>
@@ -264,7 +262,7 @@ export default function ProductGrid() {
             {/* Final Call to Action Section */}
             <div className="h-screen w-full flex flex-col items-center justify-center bg-[#FCFCFD] border-t border-black/5">
                 <h2 className="display-giant text-black/5 mb-32">
-                    OMNIS
+                    OMNIS TECH
                 </h2>
                 <motion.button
                     whileHover={{ scale: 1.02 }}

@@ -20,8 +20,8 @@ export default function Hero() {
                 style={{ opacity: opacityText, scale: scaleText }}
                 className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none"
             >
-                <h1 className="text-[25vw] font-medium tracking-tighter text-[#F2F2F4] leading-none mb-[12vh] opacity-80">
-                    OMNIS
+                <h1 className="text-[20vw] font-medium tracking-tighter text-[#F2F2F4] leading-none mb-[12vh] opacity-80">
+                    OMNIS TECH
                 </h1>
             </motion.div>
 
